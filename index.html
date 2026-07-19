@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bio Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background Audio Engine (C418 - Mice on Venus) -->
+    <audio id="bg-music" loop>
+        <source src="https://archive.org/download/minecraft-ost-c418/09.%20C418%20-%20Mice%20on%20Venus.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Splash Screen Gate -->
+    <div id="splash-screen" onclick="enterSite()">
+        <div class="splash-content">
+            <span class="pulse-text">[ click to enter ]</span>
+        </div>
+    </div>
+
+    <!-- The Visual Environment Background Layers -->
+    <div id="ambient-bg">
+        <!-- Falling Sakura Leaves Container -->
+        <div class="sakura-container" id="sakura-layer"></div>
+        <!-- Mountain Scenery Silhouette -->
+        <div class="mountains-backdrop"></div>
+    </div>
+
+    <!-- Main Centered Bio Card -->
+    <div id="main-content" class="hidden">
+        <div class="bio-card">
+            <div class="avatar-glow"></div>
+            <h1>cons</h1>
+            <p class="subtitle">@maybecons</p>
+            
+            <hr class="divider">
+            
+            <p class="description">
+                Welcome to my profile. Just chilling, im currently planning on making a game called silent breach. check out my mini game i made ⬇
+            </p>
+            
+            <div class="links-grid">
+                <a href="shooter.html" class="bio-link">🚀 Play Sky Defender</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic Sakura Particle Generator
+        function createSakuraLeaves() {
+            const container = document.getElementById('sakura-layer');
+            const leafCount = 30; // Max leaves on screen at once
+
+            for (let i = 0; i < leafCount; i++) {
+                const leaf = document.createElement('div');
+                leaf.classList.add('sakura-leaf');
+                
+                // Randomize sizes, starting horizontal points, and animation speeds
+                leaf.style.left = Math.random() * 100 + 'vw';
+                leaf.style.width = Math.random() * 8 + 6 + 'px';
+                leaf.style.height = Math.random() * 6 + 4 + 'px';
+                leaf.style.animationDuration = Math.random() * 5 + 6 + 's';
+                leaf.style.animationDelay = Math.random() * 5 + 's';
+                
+                container.appendChild(leaf);
+            }
+        }
+
+        function enterSite() {
+            const music = document.getElementById('bg-music');
+            const splash = document.getElementById('splash-screen');
+            const content = document.getElementById('main-content');
+
+            // Start ambient loop
+            music.volume = 0.4;
+            music.play().catch(err => console.log("Audio block:", err));
+
+            // Generate particle effects
+            createSakuraLeaves();
+
+            // Fade out gate entry layer
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.classList.add('hidden');
+                // Reveal centered content card
+                content.classList.remove('hidden');
+                content.style.opacity = '1';
+            }, 600);
+        }
+    </script>
+</body>
+</html>
